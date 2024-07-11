@@ -9,6 +9,7 @@ import com.evo.course.exception.LessonNotFoundException;
 import com.evo.course.mapper.LessonMapper;
 import com.evo.course.repository.LessonRepository;
 import com.evo.course.service.LessonService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,8 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public void deleteLesson(Long id) {
         lessonRepository.deleteById(id);
+
+
     }
 
     @Override
@@ -57,5 +60,13 @@ public class LessonServiceImpl implements LessonService {
         LessonEntity lessonEntity2 = lessonMapper.toLessonEntity(updateActiveLessonDto,lessonEntity);
         LessonEntity activeLessondb = lessonRepository.save(lessonEntity2);
         return lessonMapper.toLessonDto(activeLessondb);
+    }
+
+    @Override
+    public List<LessonDto> getAllLesson() {
+        return  lessonRepository.findAll()
+                .stream()
+                .map(lessonMapper::toLessonDto)
+                .toList();
     }
 }

@@ -6,9 +6,11 @@ import com.evo.course.dto.UpdateActiveLessonDto;
 import com.evo.course.dto.UpdateLessonDto;
 import com.evo.course.service.LessonService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,14 +44,20 @@ public class LessonController {
     public void deleteLesson(@PathVariable  Long id) {
         lessonService.deleteLesson(id);
 
+
     }
 
-    @PatchMapping("/deactive{id}")
-    public ResponseEntity<LessonDto> updateActiveLesson(@RequestParam Long id,
+    @PatchMapping("/deactive/{id}")
+    public ResponseEntity<LessonDto> updateActiveLesson(@PathVariable Long id,
                                                         @Valid
                                                         @RequestBody
                                                         UpdateActiveLessonDto
                                                                 updateActiveLessonDto) {
         return ResponseEntity.ok(lessonService.updateActiveLesson(id, updateActiveLessonDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LessonDto>> getLessonDtoResponseEntity(){
+        return  ResponseEntity.ok(lessonService.getAllLesson());
     }
 }
