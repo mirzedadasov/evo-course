@@ -43,8 +43,6 @@ public class LessonController {
     @DeleteMapping("/{id}")
     public void deleteLesson(@PathVariable  Long id) {
         lessonService.deleteLesson(id);
-
-
     }
 
     @PatchMapping("/deactive/{id}")
@@ -57,7 +55,10 @@ public class LessonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LessonDto>> getLessonDtoResponseEntity(){
-        return  ResponseEntity.ok(lessonService.getAllLesson());
+    public ResponseEntity<List<LessonDto>> getLessonDtoResponseEntity() {
+        return ResponseEntity.ok(lessonService.getAllLesson());
+        
     }
+
+
 }

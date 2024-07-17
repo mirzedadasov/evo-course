@@ -25,6 +25,12 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public LessonDto createLesson(CreateLessonDto createLessonDto) {
+        if (createLessonDto.getIsActive() ==null){
+             createLessonDto.setIsActive(true);
+        }
+
+
+
         LessonEntity lessonEntity =
                 lessonMapper.toLessonEntity(createLessonDto);
         LessonEntity lessonEntityDb = lessonRepository.save(lessonEntity);
@@ -34,6 +40,10 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public LessonDto updateLesson(Long id, UpdateLessonDto updateLessonDto) {
+        if (updateLessonDto.getIsActive() ==null){
+            updateLessonDto.setIsActive(true);
+        }
+
         LessonEntity entity = lessonRepository.findById(id)
                 .orElseThrow(() -> new LessonNotFoundException(
                         "lesson id =" + id + " not found"));
@@ -53,6 +63,9 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public LessonDto updateActiveLesson(Long id,
                                          UpdateActiveLessonDto updateActiveLessonDto) {
+        if (updateActiveLessonDto.getIsActive() ==null){
+            updateActiveLessonDto.setIsActive(true);
+        }
         LessonEntity lessonEntity = lessonRepository.findById(id)
                 .orElseThrow(() -> new LessonNotFoundException(
                         "lesson id = " + id + " not found"));
